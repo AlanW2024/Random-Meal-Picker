@@ -1,55 +1,373 @@
+/* --- GLOBAL RESETS & FONT --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+}
+
+/* --- BODY STYLING --- */
 body {
-    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #1a1f2d 0%, #0f1522 100%);
+    color: #e0e0e0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('images/body_background.png') center/cover no-repeat; /* img_url_1 */
+    opacity: 0.1;
+    z-index: -1; /* Ensure it's behind all content */
+}
+
+/* --- MAIN CONTAINER --- */
+.container {
+    background: rgba(26, 31, 45, 0.9); /* Semi-transparent background */
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 800px;
+    padding: 30px;
     text-align: center;
-    padding: 50px;
-    background-color: #f5f5f5;
+    border: 1px solid #3a4a6b;
+    position: relative;
+    overflow: hidden; /* Ensures pseudo-elements like border don't overflow */
+    z-index: 2;
 }
-#meal {
-    font-size: 2em;
-    margin: 20px;
-    color: #333;
+
+/* Decorative top border for the container */
+.container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, #ff8e6e, #ffce7f, #b6e6ff, #ff8e6e);
+    z-index: 3;
 }
-button {
-    padding: 10px 20px;
-    font-size: 1.2em;
+
+/* --- TYPOGRAPHY --- */
+h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    color: #ffce7f;
+    text-shadow: 0 0 10px rgba(255, 206, 127, 0.5);
+    background: linear-gradient(to right, #ff8e6e, #ffce7f, #b6e6ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+}
+
+/* Decorative underline for h1 */
+h1::after {
+    content: "";
+    display: block;
+    width: 80%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #ffce7f, transparent);
+    margin: 10px auto;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: #b6e6ff;
+}
+
+/* --- GACHA CARD STYLES --- */
+.gacha-container {
+    perspective: 1000px; /* For 3D effect on card flip */
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0;
+    position: relative;
+}
+
+.card {
+    width: 220px;
+    height: 280px;
+    position: relative;
+    transform-style: preserve-3d; /* Children positioned in 3D space */
+    transition: transform 1s;     /* Smooth flip animation */
     cursor: pointer;
+}
+
+.card.flipped {
+    transform: rotateY(180deg); /* State for showing card back */
+}
+
+.card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* Hide the back of the face during flip */
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.card-front {
+    background: linear-gradient(135deg, #2c3a58 0%, #1a2439 100%);
+    border: 2px solid #3a4a6b;
+}
+
+/* Decorative overlay for card front */
+.card-front::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url('images/genshin_logo_card_front.png') center/80% no-repeat;
+    opacity: 0.2;
+}
+
+.genshin-logo {
+    width: 120px;
+    height: 120px;
+    background: url('images/genshin_logo_card_front.png') center/contain no-repeat;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+}
+
+.card-back {
+    background: linear-gradient(135deg, #2c3a58 0%, #1a2439 100%);
+    transform: rotateY(180deg); /* Initially hidden, facing away */
+    border: 2px solid; /* Border color set by rarity classes */
+    overflow: hidden;
+}
+
+/* Meal details on card back */
+.meal-name {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 10px 0;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    padding: 0 10px;
+}
+
+.meal-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    margin: 10px auto;
+    border: 3px solid; /* Border color set by rarity classes, or a default if needed */
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.rarity {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.star {
+    color: #ffce7f;
+    margin: 0 2px;
+    font-size: 1.5rem;
+    text-shadow: 0 0 5px rgba(255, 206, 127, 0.8);
+}
+
+/* --- CONTROLS & BUTTONS --- */
+.controls {
+    margin: 25px 0;
+}
+
+.btn {
+    background: linear-gradient(to right, #ff8e6e, #ffce7f);
+    color: #1a1f2d;
     border: none;
-    background-color: #007BFF;
-    color: white;
-    border-radius: 5px;
+    padding: 15px 40px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 5px 15px rgba(255, 142, 110, 0.4);
+    position: relative;
+    overflow: hidden; /* For hover shimmer effect */
 }
-button:hover {
-    background-color: #0056b3;
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 142, 110, 0.6);
 }
-#last-meal-container {
-    font-size: 0.9em;
-    color: #555;
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+/* Button hover shimmer effect */
+.btn::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 20px;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(25deg);
+    transition: all 0.6s;
+}
+
+.btn:hover::after {
+    left: 120%;
+}
+
+/* --- HISTORY SECTION --- */
+.history {
+    margin-top: 30px;
+    padding: 20px;
+    background: rgba(26, 31, 45, 0.7);
+    border-radius: 15px;
+    border: 1px solid #3a4a6b;
+}
+
+.history h3 {
+    color: #ffce7f;
     margin-bottom: 15px;
+    font-size: 1.5rem;
 }
+
 #last-meal {
+    font-size: 1.8rem;
+    color: #b6e6ff;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(182, 230, 255, 0.5);
+}
+
+/* --- VISUAL EFFECTS (Particles, Light) --- */
+.light-effect {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0) 0%, rgba(255, 206, 127, 0) 70%, rgba(255, 206, 127, 0.15) 100%);
+    opacity: 0;
+    pointer-events: none; /* Allows clicks to pass through */
+}
+
+.particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none; /* Allows clicks to pass through */
+}
+
+.particle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #ffce7f;
+    border-radius: 50%;
+    opacity: 0; /* Starts invisible, animation fades in/out */
+}
+
+/* --- KEYFRAME ANIMATIONS --- */
+@keyframes flash {
+    0% { opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@keyframes float {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; } /* Fade in */
+    90% { opacity: 1; } /* Stay visible */
+    100% { transform: translateY(-100px) rotate(360deg); opacity: 0; } /* Float up, rotate, fade out */
+}
+
+/* Not directly used by class, but card flip uses transition on transform */
+.flip-animation { /* This class itself is not used, card flip is via .card transition + .flipped class */
+    animation: flipEffect 1s ease-out;
+}
+
+@keyframes flipEffect { /* This keyframe set is also not directly applied via .flip-animation */
+    0% { transform: rotateY(0); }
+    50% { transform: rotateY(90deg); } /* Mid-point of flip */
+    100% { transform: rotateY(180deg); }
+}
+
+/* --- RARITY-SPECIFIC STYLING --- */
+/* Defines border and background gradient for card back based on meal rarity */
+.rarity-3 { border-color: #4d9de0; background: linear-gradient(135deg, #2c3a58 0%, #1a3359 100%); } /* Blueish */
+.rarity-4 { border-color: #b16cea; background: linear-gradient(135deg, #2c3a58 0%, #321a59 100%); } /* Purplish */
+.rarity-5 { border-color: #ffce7f; background: linear-gradient(135deg, #2c3a58 0%, #593b1a 100%); } /* Goldish */
+
+/* --- DECORATIVE ELEMENTS --- */
+.paimon {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 80px;
+    height: 80px;
+    background: url('images/paimon.png') center/contain no-repeat;
+    filter: drop-shadow(0 0 5px rgba(255, 206, 127, 0.5));
+    z-index: 1; /* Below main container if overlapping, but usually not */
+}
+
+/* Display of available food items (static list for visual) */
+.food-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.food-item {
+    background: rgba(58, 74, 107, 0.5);
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    border: 1px solid #3a4a6b;
+}
+
+/* Pull counter display */
+.counter {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(26, 31, 45, 0.7);
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 1rem;
+    border: 1px solid #3a4a6b;
+}
+
+.counter span {
+    color: #ffce7f;
     font-weight: bold;
 }
-#add-meal-section { /* If you added this div */
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid #ddd;
-}
-#new-meal-input {
-    padding: 8px;
-    font-size: 1em;
-    margin-right: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-#add-meal-button { /* Style to distinguish from the main button or make it similar */
-    padding: 8px 15px;
-    font-size: 1em;
-    cursor: pointer;
-    border: none;
-    background-color: #28a745; /* Green color for add */
-    color: white;
-    border-radius: 4px;
-}
-#add-meal-button:hover {
-    background-color: #218838;
+
+/* --- RESPONSIVE ADJUSTMENTS --- */
+@media (max-width: 600px) {
+    h1 { font-size: 2.2rem; }
+    .meal-name { font-size: 1.6rem; }
+    .card { transform: scale(0.9); } /* Slightly smaller card on small screens */
+    .btn { padding: 12px 30px; font-size: 1.1rem; }
 }

@@ -3,19 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>隨機選餐工具</title>
+    <title>原神风格随机选餐工具</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>今天吃什麼？</h1>
-    <div id="last-meal-container">上次選擇: <span id="last-meal">還沒有選過喔！</span></div>
-    <div id="meal">按一下按鈕來決定！</div>
-    <button onclick="pickMeal()">隨機選餐</button>
+    <div class="light-effect" id="light-effect"></div>
+    <div class="particles" id="particles"></div>
 
-    <div id="add-meal-section" style="margin-top: 20px;">
-        <input type="text" id="new-meal-input" placeholder="輸入新菜色...">
-        <button id="add-meal-button">新增菜色</button>
+    <div class="container">
+        <div class="counter">已抽卡: <span id="pull-count">0</span> 次</div>
+
+        <h1>美食祈愿</h1>
+        <p class="subtitle">點擊按鈕抽取今日美食，體驗原神風格的抽卡樂趣！</p>
+
+        <div class="gacha-container">
+            <div class="card" id="card">
+                <div class="card-face card-front">
+                    <div class="genshin-logo"></div>
+                    <p>點擊抽取美食</p>
+                </div>
+                <div class="card-face card-back">
+                    <div class="meal-image" id="meal-image"></div>
+                    <div class="meal-name" id="meal-name">今日美食</div>
+                    <div class="rarity" id="rarity"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn" id="gacha-button">
+                <i class="fas fa-dice"></i> 抽取美食 (消耗 1 原石)
+            </button>
+        </div>
+
+        <div class="history">
+            <h3>上次選擇</h3>
+            <div id="last-meal">還沒有選過喔！</div>
+        </div>
+
+        <div class="food-list">
+            <div class="food-item">炒飯</div>
+            <div class="food-item">義大利麵</div>
+            <div class="food-item">拉麵</div>
+            <div class="food-item">便當</div>
+            <div class="food-item">咖哩飯</div>
+            <div class="food-item">漢堡</div>
+            <div class="food-item">壽司</div>
+            <div class="food-item">火鍋</div>
+            <div class="food-item">披薩</div>
+            <div class="food-item">炸雞</div>
+            <div class="food-item">沙拉</div>
+            <div class="food-item">牛排</div>
+        </div>
     </div>
+
+    <div class="paimon"></div>
+
+    <audio id="draw-sound" src="https://www.soundjay.com/buttons/sounds/button-09.mp3"></audio>
+    <audio id="rare-sound" src="https://www.soundjay.com/buttons/sounds/button-09.mp3"></audio>
+    <audio id="epic-sound" src="https://www.soundjay.com/buttons/sounds/button-09.mp3"></audio>
+    <audio id="legendary-sound" src="https://www.soundjay.com/buttons/sounds/button-09.mp3"></audio>
 
     <script src="script.js"></script>
 </body>
