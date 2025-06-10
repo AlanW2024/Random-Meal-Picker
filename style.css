@@ -1,0 +1,55 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 50px;
+    background-color: #f5f5f5;
+}
+#meal {
+    font-size: 2em;
+    margin: 20px;
+    color: #333;
+}
+button {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 5px;
+}
+button:hover {
+    background-color: #0056b3;
+}
+#last-meal-container {
+    font-size: 0.9em;
+    color: #555;
+    margin-bottom: 15px;
+}
+#last-meal {
+    font-weight: bold;
+}
+#add-meal-section { /* If you added this div */
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+}
+#new-meal-input {
+    padding: 8px;
+    font-size: 1em;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+#add-meal-button { /* Style to distinguish from the main button or make it similar */
+    padding: 8px 15px;
+    font-size: 1em;
+    cursor: pointer;
+    border: none;
+    background-color: #28a745; /* Green color for add */
+    color: white;
+    border-radius: 4px;
+}
+#add-meal-button:hover {
+    background-color: #218838;
+}

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>隨機選餐工具</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>今天吃什麼？</h1>
+    <div id="last-meal-container">上次選擇: <span id="last-meal">還沒有選過喔！</span></div>
+    <div id="meal">按一下按鈕來決定！</div>
+    <button onclick="pickMeal()">隨機選餐</button>
+
+    <div id="add-meal-section" style="margin-top: 20px;">
+        <input type="text" id="new-meal-input" placeholder="輸入新菜色...">
+        <button id="add-meal-button">新增菜色</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
